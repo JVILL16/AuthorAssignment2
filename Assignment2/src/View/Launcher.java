@@ -1,6 +1,7 @@
 package View;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -12,16 +13,23 @@ import javafx.scene.layout.BorderPane;
 import java.net.URL;
 import java.sql.Connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import Model.Author;
+import Database.AppException;
+import Database.ConnectionFactory;
 import Database.AppController;
 
 public class Launcher extends Application{
 
+	private static Logger logger = LogManager.getLogger();
 	private ObservableList<Author> authors;
 	private Connection conn;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+		logger.info("start() called");
 		AppController controller = AppController.getInstance();
 		controller.setConnection(conn);
 		URL fxmlFile = this.getClass().getResource("MenuPanelNoView.fxml");
@@ -44,10 +52,15 @@ public class Launcher extends Application{
 	@Override
 	public void init() throws Exception {
 		super.init();
-
-		authors = FXCollections.observableArrayList();
-		authors.add(new Author("Ragnar", "Ragnarson", "male", "http://www.ah-the-aliens-are-abducting-me.biz", "2016-08-16"));	//Remove after testing
-		authors.add(new Author("Sweetie", "Sweetson", "female"));	//Remove after testing
+		
+		logger.info("Creating connection...");
+		
+		try {
+			conn = ConnectionFactory.createConnection();
+		} catch(AppException e) {
+			logger.fatal("Cannot connect to db");
+			Platform.exit();
+		}
 	}
 
 
@@ -55,6 +68,9 @@ public class Launcher extends Application{
 	public void stop() throws Exception {
 		// TODO Auto-generated method stub
 		super.stop();
+		logger.info("Closing connection...");
+		
+		conn.close();
 	}
 
 

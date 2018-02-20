@@ -15,3 +15,6 @@
 17:50:29.876 INFO  Controller.AuthorDetailController : Now showing: Full Name: Ragnar Ragnarson
 17:50:44.245 INFO  Controller.AuthorDetailController : Now showing: Full Name: Ragnar Ragnarson
 17:50:44.431 INFO  Controller.AuthorDetailController : Author's info is saved
+23:57:06.874 INFO  View.Launcher : Creating connection...
+23:57:08.017 INFO  View.Launcher : start() called
+23:57:08.146 INFO  View.Launcher : Closing connection...
