@@ -16,11 +16,9 @@ import java.sql.Connection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import Controller.MenuController;
 import Database.AppException;
 import Database.ConnectionFactory;
 import Model.Author;
-import Database.AppController;
 
 public class Launcher extends Application{
 
@@ -33,9 +31,10 @@ public class Launcher extends Application{
 		logger.info("start() called");
 		AppController controller = AppController.getInstance();
 		controller.setConnection(conn);
+		
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("MenuPanelNoView.fxml"));
-		MenuController menuController = new MenuController(authors);
-		loader.setController(menuController);
+		//MenuController menuController = new MenuController(authors);
+		loader.setController(controller);
 		Parent rootPane = loader.load();
 		SingletonSwitcher.getInstance().setRootPane(rootPane);
 		SingletonSwitcher.getInstance().setAuthors(authors);
@@ -44,13 +43,28 @@ public class Launcher extends Application{
 		primaryStage.setTitle("Single Document Interface Book Inventory System");
 		primaryStage.show();
 		
+		/*URL fxmlFile = this.getClass().getResource("MenuPanelNoView.fxml");
+		FXMLLoader loader = new FXMLLoader(fxmlFile);
+		
+		loader.setController(controller);
+		
+		Parent root = loader.load();
+		controller.setRootPane((BorderPane) root);
+		
+		Scene scene = new Scene(root, 600, 400);
+	    
+		primaryStage.setTitle("Single Document Interface Book Inventory System");
+		primaryStage.setScene(scene);
+		primaryStage.show();*/		
+
+		
 		
 
 	}
 	@Override
 	public void init() throws Exception {
 		super.init();
-		authors = FXCollections.observableArrayList();
+		//authors = FXCollections.observableArrayList();
 		logger.info("Creating connection...");
 		
 		try {

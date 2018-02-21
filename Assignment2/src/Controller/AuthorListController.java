@@ -7,11 +7,10 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import Database.AppController;
 import Database.AuthorTableGateway;
-import Database.MyController;
 import Model.Author;
-import View.SingletonSwitcher;
+import View.AppController;
+import View.MyController;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -50,15 +49,15 @@ public class AuthorListController implements Initializable, MyController {
 	    if(event.getClickCount() > 1) {
 	    		Author author = authorList.getSelectionModel().getSelectedItem();
 	   			if(author != null) {
-	    			AppController.getInstance().changeView(AppController.AUTHOR_DETAIL, author);
-	   				/*FXMLLoader loader = new FXMLLoader(this.getClass().getResource("AuthorDetailView.fxml"));
+	    		//	AppController.getInstance().changeView(AppController.AUTHOR_DETAIL, author);
+	   				FXMLLoader loader = new FXMLLoader(this.getClass().getResource("AuthorDetailView.fxml"));
 	    			loader.setController(new AuthorDetailController(author, authors));
 	    			GridPane rootPane = loader.load();
 	    			Scene scene = new Scene(rootPane, 400, 200);
 	    			Stage stage = new Stage();
 	    			stage.setScene(scene);
 	    			stage.setTitle("Detail View for " + author.getAuthorFullName());
-	    			stage.show();*/
+	    			stage.show();
 	        		logger.info(author.getAuthorFullName() + " clicked");
 	    		}
 	    	}

@@ -46,7 +46,7 @@ public class AuthorTableGateway {
 		
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("select a.id as author_id, a.first_name, a.last_name, a.dob, a.gender, a.web_site");
+			st = conn.prepareStatement("SELECT * FROM AuthorTable ORDER BY first_name");
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
 				Author author = new Author(rs.getString("first_name"), 

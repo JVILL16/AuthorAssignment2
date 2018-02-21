@@ -15,11 +15,16 @@ import javafx.stage.Stage;
 import javax.swing.text.html.ListView;
 
 import Model.Author;
-import View.SingletonSwitcher;
 
 public class MenuController implements Initializable {
 
-    @FXML private ObservableList<Author> authors;
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+   /* @FXML private ObservableList<Author> authors;
     private AuthorListController alController;
 
     public MenuController(ObservableList<Author> authors) {
@@ -37,6 +42,6 @@ public class MenuController implements Initializable {
     @FXML
     public void switchToAuthorListView() throws Exception{
         SingletonSwitcher.getInstance().switchToAuthorListView();
-    }
+    }*/
 
 }

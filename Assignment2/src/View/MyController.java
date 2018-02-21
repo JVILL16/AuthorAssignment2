@@ -1,4 +1,4 @@
-package Database;
+package View;
 
 public interface MyController {
 

@@ -1,4 +1,4 @@
-package Database;
+package View;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,9 +10,11 @@ import org.apache.logging.log4j.Logger;
 
 import Controller.AuthorDetailController;
 import Controller.AuthorListController;
+import Database.AppException;
+import Database.AuthorTableGateway;
 import Model.Author;
-import View.Launcher;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,8 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
 public class AppController implements Initializable{
+	
+	@FXML private ObservableList<Author> authors;
 	private static Logger logger = LogManager.getLogger(Launcher.class);
 
 	public static final int AUTHOR_LIST = 1;
@@ -46,7 +50,7 @@ public class AppController implements Initializable{
 					controller = new AuthorListController(new AuthorTableGateway(conn));
 					break;
 				case AUTHOR_DETAIL:
-					fxmlFile = this.getClass().getResource("Controller/DogDetailView.fxml");
+					fxmlFile = this.getClass().getResource("Controller/AuthorDetailView.fxml");
 					AuthorTableGateway gateway = new AuthorTableGateway(conn);
 					controller = new AuthorDetailController((Author) arg, gateway.getAuthors());
 					break;
@@ -63,20 +67,28 @@ public class AppController implements Initializable{
 	}
 
 	@FXML
-    void clickMenuAuthorList(ActionEvent event) {
+    void switchToAuthorListView(ActionEvent event) {
+		try {
+			SingletonSwitcher.getInstance().switchToAuthorListView();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.info("Author list failed");
+		}
 		logger.info("Author list menu item clicked");
-		changeView(AUTHOR_LIST, null);
+		//changeView(AUTHOR_LIST, null);
+		
     }
 	
 	@FXML
-    void clickMenuQuit(ActionEvent event) {
+    void quit(ActionEvent event) {
 		logger.info("Quit menu item clicked");
 		Platform.exit();
     }
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
 	}
 	
 	public static AppController getInstance() {

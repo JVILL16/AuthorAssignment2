@@ -1,20 +1,26 @@
 package View;
 
+import java.sql.Connection;
+
 import Controller.AuthorDetailController;
 import Controller.AuthorListController;
+import Database.AuthorTableGateway;
 import Model.Author;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 
 public class SingletonSwitcher {
         private static SingletonSwitcher instance = null;
     private VBox root, detailBox;
-    private AnchorPane listPane;
+    //private AnchorPane listPane;
+    private BorderPane listPane = null;
     private ObservableList<Author> authors;
+    private Connection conn;
         protected SingletonSwitcher() {
         }
         public static SingletonSwitcher getInstance() {
@@ -24,14 +30,16 @@ public class SingletonSwitcher {
             return instance;
         }
         public void switchToAuthorListView() throws Exception{
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("AuthorListView.fxml"));
-            loader.setController(new AuthorListController(authors));
-            listPane = loader.load();
+        	MyController controller = null;
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Controller/AuthorListView.fxml"));
+            controller = new AuthorListController(new AuthorTableGateway(conn));
+			loader.setController(controller);
+            Parent listPane = loader.load();
             root.getChildren().remove(detailBox);
             root.getChildren().add(listPane);
         }
     public void switchToAuthorDetailView(Author author) throws Exception{
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("AuthorDetailView.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Controller/AuthorDetailView.fxml"));
         loader.setController(new AuthorDetailController(author, authors));   //Just for testing
         detailBox = loader.load();
         root.getChildren().remove(listPane);
