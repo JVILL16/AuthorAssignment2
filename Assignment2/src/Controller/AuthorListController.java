@@ -46,11 +46,19 @@ public class AuthorListController implements Initializable, MyController {
 	    	authors = this.gateway.getAuthors();
 	    }
 	    
-	 @FXML void onDogListClicked(MouseEvent event) {
+	 @FXML void onAuthorListClicked(MouseEvent event) throws IOException {
 	    if(event.getClickCount() > 1) {
 	    		Author author = authorList.getSelectionModel().getSelectedItem();
 	   			if(author != null) {
 	    			AppController.getInstance().changeView(AppController.AUTHOR_DETAIL, author);
+	   				/*FXMLLoader loader = new FXMLLoader(this.getClass().getResource("AuthorDetailView.fxml"));
+	    			loader.setController(new AuthorDetailController(author, authors));
+	    			GridPane rootPane = loader.load();
+	    			Scene scene = new Scene(rootPane, 400, 200);
+	    			Stage stage = new Stage();
+	    			stage.setScene(scene);
+	    			stage.setTitle("Detail View for " + author.getAuthorFullName());
+	    			stage.show();*/
 	        		logger.info(author.getAuthorFullName() + " clicked");
 	    		}
 	    	}
