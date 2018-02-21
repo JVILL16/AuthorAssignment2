@@ -42,11 +42,11 @@ public class AppController implements Initializable{
 			URL fxmlFile = null;
 			switch(viewType) {
 				case AUTHOR_LIST:
-					fxmlFile = this.getClass().getResource("/View/AuthorListView.fxml");
+					fxmlFile = this.getClass().getResource("Controller/AuthorListView.fxml");
 					controller = new AuthorListController(new AuthorTableGateway(conn));
 					break;
 				case AUTHOR_DETAIL:
-					fxmlFile = this.getClass().getResource("/View/DogDetailView.fxml");
+					fxmlFile = this.getClass().getResource("Controller/DogDetailView.fxml");
 					AuthorTableGateway gateway = new AuthorTableGateway(conn);
 					controller = new AuthorDetailController((Author) arg, gateway.getAuthors());
 					break;
@@ -63,7 +63,7 @@ public class AppController implements Initializable{
 	}
 
 	@FXML
-    void clickMenuDogList(ActionEvent event) {
+    void clickMenuAuthorList(ActionEvent event) {
 		logger.info("Author list menu item clicked");
 		changeView(AUTHOR_LIST, null);
     }
