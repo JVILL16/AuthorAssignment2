@@ -25,10 +25,8 @@ import javafx.scene.layout.BorderPane;
 public class AppController implements Initializable{
 	
 	@FXML private ObservableList<Author> authors;
+	
 	private static Logger logger = LogManager.getLogger(Launcher.class);
-
-	public static final int AUTHOR_LIST = 1;
-	public static final int AUTHOR_DETAIL = 2;
 
 	private static AppController myInstance = null;
 	
@@ -40,35 +38,10 @@ public class AppController implements Initializable{
 		//TODO: instantiate models
 	}
 	
-	public void changeView(int viewType, Object arg) throws AppException {
-		try {
-			MyController controller = null;
-			URL fxmlFile = null;
-			switch(viewType) {
-				case AUTHOR_LIST:
-					fxmlFile = this.getClass().getResource("Controller/AuthorListView.fxml");
-					controller = new AuthorListController(new AuthorTableGateway(conn));
-					break;
-				case AUTHOR_DETAIL:
-					fxmlFile = this.getClass().getResource("Controller/AuthorDetailView.fxml");
-					AuthorTableGateway gateway = new AuthorTableGateway(conn);
-					controller = new AuthorDetailController((Author) arg, gateway.getAuthors());
-					break;
-			}
-		
-			FXMLLoader loader = new FXMLLoader(fxmlFile);
-			loader.setController(controller);
-		
-			Parent viewNode = loader.load();
-			rootPane.setCenter(viewNode);
-		} catch (IOException e) {
-			throw new AppException(e);
-		}
-	}
-
 	@FXML
     void switchToAuthorListView(ActionEvent event) {
 		try {
+			//skips this and goes to exception
 			SingletonSwitcher.getInstance().switchToAuthorListView();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -76,7 +49,6 @@ public class AppController implements Initializable{
 			logger.info("Author list failed");
 		}
 		logger.info("Author list menu item clicked");
-		//changeView(AUTHOR_LIST, null);
 		
     }
 	

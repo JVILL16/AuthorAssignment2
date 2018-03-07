@@ -8,6 +8,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="src/View/log4j-api-2.7.jar"/>
 	<classpathentry kind="lib" path="src/View/log4j-core-2.7.jar"/>
-	<classpathentry kind="lib" path="mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jvill/git/AuthorAssignment2/Assignment2/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

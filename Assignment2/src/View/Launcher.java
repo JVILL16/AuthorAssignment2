@@ -41,24 +41,8 @@ public class Launcher extends Application{
 		Scene menuView = new Scene(rootPane, 600, 400);
 		primaryStage.setScene(menuView);
 		primaryStage.setTitle("Single Document Interface Book Inventory System");
-		primaryStage.show();
-		
-		/*URL fxmlFile = this.getClass().getResource("MenuPanelNoView.fxml");
-		FXMLLoader loader = new FXMLLoader(fxmlFile);
-		
-		loader.setController(controller);
-		
-		Parent root = loader.load();
-		controller.setRootPane((BorderPane) root);
-		
-		Scene scene = new Scene(root, 600, 400);
-	    
-		primaryStage.setTitle("Single Document Interface Book Inventory System");
-		primaryStage.setScene(scene);
-		primaryStage.show();*/		
+		primaryStage.show();	
 
-		
-		
 
 	}
 	@Override

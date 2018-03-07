@@ -5,11 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import Model.Author;
+import View.Launcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AuthorTableGateway {
+	
+	private static Logger logger = LogManager.getLogger(Launcher.class);
 	private Connection conn;
 	
 	public AuthorTableGateway(Connection conn) {
@@ -46,7 +52,12 @@ public class AuthorTableGateway {
 		
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM AuthorTable ORDER BY first_name");
+			
+			if (conn == null)
+				logger.info("Connection is null still");
+			
+			st = conn.prepareStatement("SELECT * FROM AuthorTable"
+					+ " ORDER BY first_name");
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
 				Author author = new Author(rs.getString("first_name"), 

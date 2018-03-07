@@ -12,13 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-
+// Connection doesnt run through here so it doesnt make a connection and might not even get through this script
 
 public class SingletonSwitcher {
         private static SingletonSwitcher instance = null;
     private VBox root, detailBox;
-    //private AnchorPane listPane;
-    private BorderPane listPane = null;
+    private AnchorPane listPane;
+   // private BorderPane listPane = null;
     private ObservableList<Author> authors;
     private Connection conn;
         protected SingletonSwitcher() {
@@ -30,11 +30,12 @@ public class SingletonSwitcher {
             return instance;
         }
         public void switchToAuthorListView() throws Exception{
+        	//putting logs here wont log so the connection = null error is before this
         	MyController controller = null;
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Controller/AuthorListView.fxml"));
             controller = new AuthorListController(new AuthorTableGateway(conn));
 			loader.setController(controller);
-            Parent listPane = loader.load();
+            listPane = loader.load();
             root.getChildren().remove(detailBox);
             root.getChildren().add(listPane);
         }
@@ -51,4 +52,6 @@ public class SingletonSwitcher {
     public void setAuthors(ObservableList<Author> authors){
         this.authors = authors;
     }
+    
+    
 }
